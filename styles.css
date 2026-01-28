@@ -1,0 +1,183 @@
+/* --- Base y Tipografía --- */
+:root {
+    --color-principal: #004d99; /* Azul fuerte (simulando bandera) */
+    --color-secundario: #ffc72c; /* Amarillo dorado */
+    --color-fondo: #f4f4f9;
+    --color-texto: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    transition: margin-top 0.3s;
+}
+
+/* --- Encabezado y Navegación --- */
+header {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 60px 20px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+header .slogan {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 10px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease;
+}
+
+nav a:hover {
+    border-bottom: 2px solid var(--color-secundario);
+}
+
+/* --- Contenido Principal y Secciones --- */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.seccion {
+    background: white;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.seccion h2 {
+    color: var(--color-principal);
+    border-bottom: 3px solid var(--color-secundario);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.seccion ul {
+    list-style-type: '👉 ';
+    margin-left: 20px;
+}
+
+.nota-interes {
+    background-color: #e0f7fa;
+    border-left: 5px solid #00bcd4;
+    padding: 15px;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* Diseño de la sección Comercio */
+.lista-comercio {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.lista-comercio div {
+    flex: 1;
+    padding: 15px;
+    background-color: #f7f7ff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.lista-comercio h3 {
+    color: var(--color-secundario);
+    margin-bottom: 5px;
+}
+
+/* --- Pie de Página --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color-principal);
+    color: white;
+    margin-top: 30px;
+}
+
+/* --- Formulario de Acceso (Overlay) --- */
+#acceso-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.formulario-acceso {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+}
+
+.formulario-acceso h2 {
+    color: var(--color-principal);
+    margin-bottom: 10px;
+}
+
+.formulario-acceso p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+#form-acceso input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#form-acceso button {
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    width: 100%;
+}
+
+#form-acceso button:hover {
+    background-color: #ffd966;
+}

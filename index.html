@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Digital San Rafael de Onoto | Guía Turística y Comercial</title>
+    <meta name="description" content="Explora San Rafael de Onoto, Portuguesa. Historia, sitios turísticos como el Embalse Las Majaguas y directorio de comercios locales.">
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #064e3b; 
+            --secondary-color: #f59e0b; 
+            --text-color: #374151;
+            --light-bg: #f9fafb;
+            --white: #ffffff;
+            --whatsapp-green: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-color); background-color: var(--light-bg); line-height: 1.6; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Lora', serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Navegación --- */
+        nav { background: var(--primary-color); color: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 10px; transition: all 0.3s ease; }
+        .nav-links a { 
+            padding: 6px 12px; font-weight: 500; font-size: 0.85rem;
+            border: 1px solid var(--secondary-color); border-radius: 20px;
+            transition: 0.3s; background: rgba(255,255,255,0.05);
+        }
+        .nav-links a:hover { background: var(--secondary-color); color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 100%; right: 2rem; background: var(--primary-color);
+                padding: 1rem; border-radius: 15px; border: 1px solid var(--secondary-color);
+                width: 200px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1001;
+                opacity: 0; transform: translateY(-10px);
+            }
+            .nav-links.active { display: flex; opacity: 1; transform: translateY(0); }
+            .nav-links a { width: 100%; text-align: center; margin: 5px 0; }
+        }
+
+        /* --- Hero --- */
+        .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('portada 2.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
+        .hero h1 { font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+        /* --- Secciones --- */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 3rem; color: var(--primary-color); font-size: 2.5rem; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--secondary-color); margin: 10px auto; }
+
+        /* --- Historia --- */
+        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .history-img img { width: 100%; height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* --- Turismo --- */
+        .tourism-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .place-card { position: relative; height: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 15px rgba(0,0,0,0.1); cursor: pointer; }
+        .place-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .place-info { position: absolute; bottom: 0; width: 100%; padding: 1.2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: orange; }
+
+        /* --- Comercios (2 imágenes por negocio) --- */
+        .business-container { display: flex; flex-direction: column; gap: 3rem; }
+        .business-item { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 6px solid var(--secondary-color); }
+        .business-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
+        .business-images { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .business-img-box { height: 180px; border-radius: 10px; overflow: hidden; position: relative; }
+        .business-img-box img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.3s; }
+        .business-img-box span { position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.6); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; }
+        .contact-btn { background: var(--whatsapp-green); color: white; padding: 8px 15px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Galería --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .gallery-item { aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { max-width: 90%; max-height: 80%; border-radius: 10px; }
+        .close-modal { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
+        /* Mapa y Formulario */
+        .map-container { height: 450px; border-radius: 15px; overflow: hidden; border: 4px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 3rem; }
+        .form-box { max-width: 600px; margin: 0 auto; background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .btn-send { width: 100%; background: var(--primary-color); color: white; padding: 1rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* --- Anuncio Flotante REDUCIDO --- */
+        .floating-ad { 
+            position: fixed; bottom: 20px; right: 20px; background: var(--secondary-color); 
+            color: var(--primary-color); padding: 6px 14px; border-radius: 25px; 
+            font-weight: bold; font-size: 0.75rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            z-index: 2000; display: flex; align-items: center; gap: 6px; animation: floatAnim 3s infinite ease-in-out; 
+        }
+        @keyframes floatAnim { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        footer { background: #111827; color: white; padding: 3rem 1rem; text-align: center; }
+        @media (max-width: 768px) { .history-grid, .business-images { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-leaf" style="color: var(--secondary-color);"></i> San Rafael de Onoto</div>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
+            <div class="nav-links" id="navLinks">
+                <a href="#historia" onclick="toggleMenu()">Reseña</a>
+                <a href="#turismo" onclick="toggleMenu()">Turismo</a>
+                <a href="#comercio" onclick="toggleMenu()">Comercios</a>
+                <a href="#galeria" onclick="toggleMenu()">Galería</a>
+                <a href="#registro" onclick="toggleMenu()">Unirse</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>San Rafael de Onoto</h1>
+    </header>
+
+    <section id="historia">
+        <h2 class="section-title">Reseña Histórica</h2>
+        <div class="history-grid">
+            <div class="history-text">
+                <h3>Orígenes y Fundación</h3>
+                <p>El Municipio San Rafael de Onoto, ubicado en el noreste del estado Portuguesa, cuenta con una superficie de 187 km² y una población aproximada de 17.600 habitantes. Su capital es la localidad homónima, San Rafael de Onoto, fundada el 9 de mayo de 1726 como misión religiosa por frailes españoles y portugueses. En sus orígenes estuvo habitado por comunidades indígenas como los otomacos, amaibos, guaranaos y guamos, que marcaron la identidad cultural de la región.</p>
+                <h3>Geografía y Clima</h3>
+                <p>Geográficamente, el municipio se distingue por la presencia del río Cojedes, que atraviesa su territorio, y por el Embalse Las Majaguas, una de las obras hidráulicas más importantes de Venezuela, que sostiene la producción agrícola mediante un sistema de riego que beneficia a cientos de productores. El clima es cálido, con una temperatura promedio de 26,5 °C, y su paisaje combina montañas al norte con extensos llanos al sur.</p>
+                <h3>Parroquias</h3>
+                <p>Administrativamente, está conformado por tres parroquias: San Rafael de Onoto, Santa Fe y Thermo Morles. La vida política y social se concentra en la capital municipal, donde destacan espacios emblemáticos como la Plaza Bolívar, la Iglesia Parroquial San Rafael Arcángel y el Bulevar, que funcionan como puntos de encuentro comunitario y cultural.</p>
+            </div>
+            <div class="history-img"><img src="agricolas.jpg" alt="Reseña histórica y orígenes del Municipio San Rafael de Onoto"></div>
+        </div>
+    </section>
+
+    <section id="turismo" style="background: #f1f5f9; max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <h2 class="section-title">Sitios Turísticos</h2>
+            <div class="tourism-grid">
+                <div class="place-card" onclick="openModal('represa.jpg')">
+                    <img src="represa.jpg" alt="Embalse Las Majaguas - San Rafael de Onoto, Portuguesa">
+                    <div class="place-info"><h3>Embalse Las Majaguas</h3></div>
+                </div>
+                <div class="place-card" onclick="openModal('portada 2.jpg')">
+                    <img src="portada 2.jpg" alt="Iglesia Parroquial San Rafael Arcángel - Patrimonio Histórico">
+                    <div class="place-info"><h3>Iglesia Católica San Rafael Arcángel</h3></div>
+                </div>
+                <div class="place-card" onclick="openModal('manga de coleo.jpg')">
+                    <img src="manga de coleo.jpg" alt="Manga de Coleo">
+                    <div class="place-info"><h3>Manga de Coleo en San Rafael de Onoto - Tradición Llanera</h3></div>
+                </div>
+                <div class="place-card" onclick="openModal('estadio guaca muñoz.jpg')">
+                    <img src="estadio guaca muñoz.jpg" alt="Estadio Guaca Muñoz - Instalaciones Deportivas San Rafael de Onoto">
+                    <div class="place-info"><h3>Estadio Guaca Muñoz</h3></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comercio">
+        <h2 class="section-title">Emprendimientos Locales</h2>
+        <div class="business-container">
+            <div class="business-item">
+                <div class="business-header">
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-store" style="font-size:2rem; color:var(--primary-color)"></i><h3>Almacén Omaira Center C.A.</h3></div>
+                    <a href="https://wa.me/584125564856" class="contact-btn" target="_blank"><i class="fab fa-whatsapp"></i> Contactar</a>
+                </div>
+                <div class="business-images">
+                    <div class="business-img-box"><img src="Comercio local Omaira center.jpg" onclick="openModal(this.src)"><span>El Local</span></div>
+                    <div class="business-img-box"><img src="Comida Omaira center.jpg" onclick="openModal(this.src)"><span>Productos</span></div>
+                     <div class="business-img-box"><img src="Panes Omaira center.jpg" onclick="openModal(this.src)"><span>Productos</span></div>
+                </div>
+                <p>Es el supermercado líder en San Rafael de Onoto, ofreciendo una amplia variedad de víveres, productos de la cesta básica, artículos de limpieza e higiene personal.</p>
+            </div>
+            <div class="business-item">
+                <div class="business-header">
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-store" style="font-size:2rem; color:var(--primary-color)"></i><h3>Expendio de Medicinas Don Jesús C.A.</h3></div>
+                    <a href="https://wa.me/584125564856" class="contact-btn" target="_blank"><i class="fab fa-whatsapp"></i> Contactar</a>
+                </div>
+                <div class="business-images">
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus.jpeg" onclick="openModal(this.src)"><span>El Local</span></div>
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus 2.jpeg" onclick="openModal(this.src)"><span>Productos</span></div>
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus 3.jpeg" onclick="openModal(this.src)"><span>Productos</span></div>
+                </div>
+                <p>Es la farmacia de confianza en San Rafael de Onoto, ofreciendo una amplia gama de medicamentos, insumos médicos y productos de cuidado personal. Nos destacamos por nuestra atención experta, precios accesibles y el compromiso constante con la salud y el bienestar de nuestra comunidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <h2 class="section-title">Galería del Pueblo</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="referencia 1.jpeg" onclick="openModal(this.src)" alt="Paisajes y calles de San Rafael de Onoto"></div>
+            <div class="gallery-item"><img src="referencia 2.jpeg" onclick="openModal(this.src)" alt="Paisajes y calles de San Rafael de Onoto"></div>
+            <div class="gallery-item"><img src="referencia 3.jpeg" onclick="openModal(this.src)" alt="Paisajes y calles de San Rafael de Onoto"></div>
+        </div>
+    </section>
+
+    <div id="myModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <img class="modal-content" id="imgFull">
+    </div>
+
+    <section id="registro">
+        <h2 class="section-title">Como Llegar?</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15714.47565158671!2d-68.981521!3d9.678803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e81e1613bbb468d%3A0x815fe2b86cd7a7d4!2sSan%20Rafael%20De%20Onoto%203306%2C%20Portuguesa!5e0!3m2!1ses!2sve!4v1700000000000!5m2!1ses!2sve" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="form-box">
+            <h3 style="text-align: center; margin-bottom: 1.5rem;">Registra tu Negocio</h3>
+            <form id="waForm">
+                <input type="text" id="nombre" placeholder="Nombre de tu Negocio" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ddd;" required>
+                <textarea id="detalle" placeholder="¿Qué ofreces?" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ddd;" rows="3" required></textarea>
+                <button type="submit" class="btn-send">Enviar a WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <a href="#registro" class="floating-ad"><i class="fas fa-rocket"></i> impulsa tu comercio</a>
+
+    <footer>
+        <p><strong>San Rafael de Onoto - Portuguesa</strong></p>
+        <p>© 2026 Todos los derechos reservados - Proyecto SRO</p>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById("navLinks").classList.toggle("active"); }
+        function openModal(src) { document.getElementById("myModal").style.display = "flex"; document.getElementById("imgFull").src = src; }
+        function closeModal() { document.getElementById("myModal").style.display = "none"; }
+        window.onclick = function(event) { if (event.target == document.getElementById("myModal")) closeModal(); }
+        document.getElementById('waForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const n = document.getElementById('nombre').value;
+            const d = document.getElementById('detalle').value;
+            window.open(`https://wa.me/584125564856?text=Hola!+Quiero+registrar+mi+negocio:+${n}+-+Detalle:+${d}`, '_blank');
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
