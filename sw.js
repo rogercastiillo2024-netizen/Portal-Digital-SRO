@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sro-cache-v4';
+const CACHE_NAME = 'sro-cache-v5';
 
 // Archivos principales que se guardan apenas se instala
 const urlsToCache = [
@@ -46,3 +46,4 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
