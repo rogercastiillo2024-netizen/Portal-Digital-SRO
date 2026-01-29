@@ -1,0 +1,22 @@
+{
+  "name": "Portal Digital San Rafael de Onoto",
+  "short_name": "SRO Digital",
+  "description": "Guía Turística y Comercial de San Rafael de Onoto",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#064e3b",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
