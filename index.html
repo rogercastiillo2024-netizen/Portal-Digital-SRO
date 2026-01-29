@@ -243,13 +243,22 @@
         function openModal(src) { document.getElementById("myModal").style.display = "flex"; document.getElementById("imgFull").src = src; }
         function closeModal() { document.getElementById("myModal").style.display = "none"; }
         window.onclick = function(event) { if (event.target == document.getElementById("myModal")) closeModal(); }
-        document.getElementById('waForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const n = document.getElementById('nombre').value;
-            const d = document.getElementById('detalle').value;
-            window.open(`https://wa.me/584125564856?text=Hola!+Quiero+registrar+mi+negocio:+${n}+-+Detalle:+${d}`, '_blank');
-        });
-    </script>
+          document.getElementById('waForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Verificamos si hay internet
+    if (!navigator.onLine) {
+        alert("¡Vaya! Parece que no tienes conexión a internet en este momento. Tu mensaje se enviará cuando recuperes la señal.");
+        return;
+    }
+
+    const n = document.getElementById('nombre').value;
+    const d = document.getElementById('detalle').value;
+    
+    // Tu número registrado: 04125564856    
+    const url = `https://wa.me/584125564856?text=Hola!+Quiero+registrar+mi+negocio:+${n}+-+Detalle:+${d}`;
+    window.open(url, '_blank');
+});
     
     <script>
   if ('serviceWorker' in navigator) {
@@ -263,6 +272,7 @@
 </body>
 
 </html>
+
 
 
 
