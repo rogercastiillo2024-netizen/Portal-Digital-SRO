@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Digital San Rafael de Onoto | Guía Turística y Comercial</title>
+    <meta name="description" content="Explora San Rafael de Onoto, Portuguesa. Historia, sitios turísticos como el Embalse Las Majaguas y directorio de comercios locales.">
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#064e3b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="logo.png">
+
+    <style>
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
+    .modal-content { margin: auto; display: block; width: 80%; max-width: 700px; margin-top: 5%; border-radius: 10px; }
+    .close { position: absolute; top: 20px; right: 35px; color: white; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+        .foto-extra {
+            display: none; /* Empiezan ocultas */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .foto-visible {
+            display: block !important;
+            opacity: 1 !important;
+        }
+    
+
+        :root {
+            --primary-color: #064e3b; 
+            --secondary-color: #f59e0b; 
+            --text-color: #374151;
+            --light-bg: #f9fafb;
+            --white: #ffffff;
+            --whatsapp-green: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-color); background-color: var(--light-bg); line-height: 1.6; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Lora', serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Navegación --- */
+        nav { background: var(--primary-color); color: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary-color); }
+        .nav-links { display: flex; gap: 10px; transition: all 0.3s ease; }
+        .nav-links a { 
+            padding: 6px 12px; font-weight: 500; font-size: 0.85rem;
+            border: 1px solid var(--secondary-color); border-radius: 20px;
+            transition: 0.3s; background: rgba(255,255,255,0.05);
+        }
+        .nav-links a:hover { background: var(--secondary-color); color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 100%; right: 2rem; background: var(--primary-color);
+                padding: 1rem; border-radius: 15px; border: 1px solid var(--secondary-color);
+                width: 200px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1001;
+                opacity: 0; transform: translateY(-10px);
+            }
+            .nav-links.active { display: flex; opacity: 1; transform: translateY(0); }
+            .nav-links a { width: 100%; text-align: center; margin: 5px 0; }
+        }
+
+        /* --- Hero --- */
+        .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('portada 2.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
+        .hero h1 { font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+        /* --- Secciones --- */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 3rem; color: var(--primary-color); font-size: 2.5rem; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--secondary-color); margin: 10px auto; }
+
+        /* --- Historia --- */
+        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .history-img img { width: 100%; height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* --- Turismo --- */
+        .tourism-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .place-card { position: relative; height: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 15px rgba(0,0,0,0.1); cursor: pointer; }
+        .place-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .place-info { position: absolute; bottom: 0; width: 100%; padding: 1.2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: orange; }
+
+        /* --- Comercios (2 imágenes por negocio) --- */
+        .business-container { display: flex; flex-direction: column; gap: 3rem; }
+        .business-item { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 6px solid var(--secondary-color); }
+        .business-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
+        .business-images { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .business-img-box { height: 180px; border-radius: 10px; overflow: hidden; position: relative; }
+        .business-img-box img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.3s; }
+        .business-img-box span { position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.6); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; }
+        .contact-btn { background: var(--whatsapp-green); color: white; padding: 8px 15px; border-radius: 8px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Galería --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .gallery-item { aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { max-width: 90%; max-height: 80%; border-radius: 10px; }
+        .close-modal { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
+        /* Mapa y Formulario */
+        .map-container { height: 450px; border-radius: 15px; overflow: hidden; border: 4px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 3rem; }
+        .form-box { 
+        max-width: 600px; 
+        margin: 0 auto; 
+        background: var(--white); 
+        padding: 2.5rem; 
+        border-radius: 24px; 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    opacity: 0.6;
+}
+
+.input-group textarea i {
+    top: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
+    border-radius: 12px;
+    border: 2px solid #edf2f7;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+}
+
+.btn-send { 
+    width: 100%; 
+    background: var(--primary-color); 
+    color: var(--white); 
+    padding: 1.1rem; 
+    border: none; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    font-size: 1rem;
+    cursor: pointer; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-send:hover {
+    background: #043a2c;
+    transform: translateY(-2px);
+}
+
+.btn-send:active {
+    transform: translateY(0);
+}
+       
+   
+        /* --- Anuncio Flotante REDUCIDO --- */
+        .floating-ad { 
+            position: fixed; bottom: 20px; right: 20px; background: var(--secondary-color); 
+            color: var(--primary-color); padding: 6px 14px; border-radius: 25px; 
+            font-weight: bold; font-size: 0.75rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            z-index: 2000; display: flex; align-items: center; gap: 6px; animation: floatAnim 3s infinite ease-in-out; 
+        }
+        @keyframes floatAnim { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        footer { background: #111827; color: white; padding: 3rem 1rem; text-align: center; }
+        @media (max-width: 768px) { .history-grid, .business-images { grid-template-columns: 1fr; } }
+
+        
+        /* --- Anuncio Flotante de instalacion de app --- */
+
+        .fab-install {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1d6715;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+    cursor: pointer;
+    font-weight: bold;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+    </style>
+
+    <head>
+    <script data-goatcounter="https://portalsro.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+
+        </head>
+
+<body>
+    <div id="installContainer" style="display: none;">
+    <button id="btnInstall" class="fab-install">
+        <i class="fas fa-download"></i>
+        <span>Instalar App</span>
+    </button>
+</div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-leaf" style="color: var(--secondary-color);"></i> San Rafael de Onoto</div>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
+            <div class="nav-links" id="navLinks">
+                <a href="#historia" onclick="toggleMenu()">Reseña</a>
+               <a href="ubicacion.html" class="btn-turismo">Turismo</a>
+                <a href="#comercio" onclick="toggleMenu()">Comercios</a>
+                <a href="#galeria" onclick="toggleMenu()">Galería</a>
+                <a href="#registro" onclick="toggleMenu()">Unirse</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>San Rafael de Onoto</h1>
+    </header>
+
+    <section id="historia">
+        <h2 class="section-title">Reseña Histórica</h2>
+        <div class="history-grid">
+            <div class="history-text">
+                <h3>Orígenes y Fundación</h3>
+                <p>El Municipio San Rafael de Onoto, ubicado en el noreste del estado Portuguesa, cuenta con una superficie de 187 km² y una población aproximada de 17.600 habitantes. Su capital es la localidad homónima, San Rafael de Onoto, fundada el 9 de mayo de 1726 como misión religiosa por frailes españoles y portugueses. En sus orígenes estuvo habitado por comunidades indígenas como los otomacos, amaibos, guaranaos y guamos, que marcaron la identidad cultural de la región.</p>
+                <h3>Geografía y Clima</h3>
+                <p>Geográficamente, el municipio se distingue por la presencia del río Cojedes, que atraviesa su territorio, y por el Embalse Las Majaguas, una de las obras hidráulicas más importantes de Venezuela, que sostiene la producción agrícola mediante un sistema de riego que beneficia a cientos de productores. El clima es cálido, con una temperatura promedio de 26,5 °C, y su paisaje combina montañas al norte con extensos llanos al sur.</p>
+                <h3>Parroquias</h3>
+                <p>Administrativamente, está conformado por tres parroquias: San Rafael de Onoto, Santa Fe y Thermo Morles. La vida política y social se concentra en la capital municipal, donde destacan espacios emblemáticos como la Plaza Bolívar, la Iglesia Parroquial San Rafael Arcángel y el Bulevar, que funcionan como puntos de encuentro comunitario y cultural.</p>
+            </div>
+            <div class="history-img"><img src="agricolas.jpg" alt="Reseña histórica y orígenes del Municipio San Rafael de Onoto"></div>
+        </div>
+
+    </section>
+
+    <section id="comercio">
+        <h2 class="section-title">Emprendimientos Locales</h2>
+        <div class="business-container">
+            <div class="business-item">
+                <div class="business-header">
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-store" style="font-size:2rem; color:var(--primary-color)"></i><h3>Almacén Omaira Center C.A.</h3></div>
+                    <a href="https://wa.me/584125564856" class="contact-btn" target="_blank"><i class="fab fa-whatsapp"></i> Contactar</a>
+                </div>
+                <div class="business-images">
+                    <div class="business-img-box"><img src="Comercio local Omaira center.jpg" onclick="openModal(this.src)"><span>El Local</span></div>
+                    <div class="business-img-box"><img src="Comida Omaira center.jpg" onclick="openModal(this.src)"><span>Productos</span></div>
+                     <div class="business-img-box"><img src="Panes Omaira center.jpg" onclick="openModal(this.src)"><span>Productos</span></div>
+                </div>
+                <p>Es el supermercado líder en San Rafael de Onoto, ofreciendo una amplia variedad de víveres, productos de la cesta básica, artículos de limpieza e higiene personal.</p>
+            </div>
+            <div class="business-item">
+                <div class="business-header">
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-store" style="font-size:2rem; color:var(--primary-color)"></i><h3>Expendio de Medicinas Don Jesús C.A.</h3></div>
+                    <a href="https://wa.me/584125564856" class="contact-btn" target="_blank"><i class="fab fa-whatsapp"></i> Contactar</a>
+                </div>
+                <div class="business-images">
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus.jpeg" onclick="openModal(this.src)"><span>El Local</span></div>
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus 2.jpeg" onclick="openModal(this.src)"><span>Productos</span></div>
+                    <div class="business-img-box"><img src="Expendio de Medicinas Don Jesus 3.jpeg" onclick="openModal(this.src)"><span>Productos</span></div>
+                </div>
+                <p>Es la farmacia de confianza en San Rafael de Onoto, ofreciendo una amplia gama de medicamentos, insumos médicos y productos de cuidado personal. Nos destacamos por nuestra atención experta, precios accesibles y el compromiso constante con la salud y el bienestar de nuestra comunidad.</p>
+            </div>
+        </div>
+    </section>
+
+   <section id="galeria" style="text-align: center; padding: 40px 20px; background-color: #f4f4f4; border-radius: 15px;">
+    <h2 style="font-family: sans-serif; color: #064e3b;">Nuestra Galería</h2>
+    
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <img src="referencia 1.jpeg" onclick="abrirImagen(this.src)" alt="Foto 1" 
+             style="width: 100%; max-width: 280px; cursor: pointer; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.15);">
+        
+        <img src="referencia 2.jpeg" onclick="abrirImagen(this.src)" alt="Foto 2" 
+             style="width: 100%; max-width: 280px; cursor: pointer; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.15);">
+    </div>
+
+    <br>
+    <a href="galeria.html" style="display: inline-block; margin-top: 25px; padding: 12px 35px; background: #064e3b; color: white; text-decoration: none; border-radius: 30px; font-weight: bold;">
+        Ver más fotos →
+    </a>
+</section>
+
+<div id="miModal" class="modal">
+    <span class="close" onclick="cerrarImagen()">&times;</span>
+    <img class="modal-content" id="imgGrande">
+</div>
+    
+<div id="myModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <img class="modal-content" id="imgFull">
+    </div>
+
+    <section id="registro">
+        <h2 class="section-title">Como Llegar?</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15714.47565158671!2d-68.981521!3d9.678803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e81e1613bbb468d%3A0x815fe2b86cd7a7d4!2sSan%20Rafael%20De%20Onoto%203306%2C%20Portuguesa!5e0!3m2!1ses!2sve!4v1700000000000!5m2!1ses!2sve" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="form-box">
+    <h3 style="text-align: center; margin-bottom: 0.5rem; color: var(--primary-color);">Impulsa tu Comercio</h3>
+    <p style="text-align: center; margin-bottom: 2rem; font-size: 0.9rem; color: #666;">Registra tu negocio en el portal oficial de San Rafael de Onoto</p>
+    
+    <form id="waForm" onsubmit="enviarWhatsApp(event)">
+        <div class="input-group">
+            <i class="fas fa-store"></i>
+            <input type="text" id="nombre" class="form-control" placeholder="Nombre de tu Negocio" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-bullhorn"></i>
+            <textarea id="detalle" class="form-control" placeholder="¿Qué ofreces? (Ej: Comida rápida, farmacia, servicios...)" rows="3" required></textarea>
+        </div>
+<div class="input-group">
+    <i class="fas fa-clock"></i>
+    <input type="text" id="horario" class="form-control" placeholder="Horario (Ej: 8am - 6pm)" required>
+</div>
+        <button type="submit" class="btn-send">
+            <i class="fab fa-whatsapp"></i> 
+            Enviar a WhatsApp
+        </button>
+    </form>
+</div>
+            </form>
+        </div>
+    </section>
+
+    <a href="#registro" class="floating-ad"><i class="fas fa-rocket"></i> impulsa tu comercio</a>
+
+    <footer>
+        <p><strong>San Rafael de Onoto - Portuguesa</strong></p>
+        <p>© 2026 Todos los derechos reservados</p>
+        <p>Desarrollado por Roger Castillo</p>
+    </footer>
+
+   <script>
+
+        function toggleMenu() { document.getElementById("navLinks").classList.toggle("active"); }
+        function openModal(src) { document.getElementById("myModal").style.display = "flex"; document.getElementById("imgFull").src = src; }
+        function closeModal() { document.getElementById("myModal").style.display = "none"; }
+        window.onclick = function(event) { if (event.target == document.getElementById("myModal")) closeModal(); }
+      document.getElementById('waForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-send');
+    const originalContent = btn.innerHTML;
+    
+    if (!navigator.onLine) {
+        alert("⚠️ Sin conexión a internet.");
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+
+    // Capturamos los 3 campos ahora
+    const n = document.getElementById('nombre').value;
+    const d = document.getElementById('detalle').value;
+    const h = document.getElementById('horario').value; // <--- Nuevo campo
+    
+    const telefono = "584125564856";
+    const saludo = "🚀 *NUEVO REGISTRO - PORTAL SRO*";
+    const cuerpo = `\n\n🏪 *Negocio:* \n_${n}_\n\n📣 *Ofrece:* \n_${d}_\n\n⏰ *Horario:* \n_${h}_`;
+    const pie = `\n\n--- \n📱 _Enviado desde la App SRO_`;
+    
+    const mensajeFinal = saludo + cuerpo + pie;
+    
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
+        btn.style.background = "#25d366";
+        
+        setTimeout(() => {
+            window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensajeFinal)}`, '_blank');
+            
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.style.background = "";
+                btn.innerHTML = originalContent;
+                e.target.reset();
+            }, 2000);
+        }, 800);
+    }, 1000);
+});
+
+let deferredPrompt;
+const installContainer = document.getElementById('installContainer');
+const btnInstall = document.getElementById('btnInstall');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Evita que Chrome muestre su propio aviso aburrido
+    e.preventDefault();
+    // Guarda el evento para usarlo luego
+    deferredPrompt = e;
+    // Muestra nuestro botón animado
+    installContainer.style.display = 'block';
+});
+
+btnInstall.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        // Muestra la ventana de instalación oficial
+        deferredPrompt.prompt();
+        // Espera la respuesta del usuario
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Usuario eligió: ${outcome}`);
+        // Limpiamos la variable
+        deferredPrompt = null;
+        // Escondemos nuestro botón
+        installContainer.style.display = 'none';
+    }
+});
+
+// Esconder el botón si la app ya se instaló
+window.addEventListener('appinstalled', () => {
+    installContainer.style.display = 'none';
+    console.log('PWA instalada con éxito');
+});
+
+        function toggleGaleria() {
+            const fotos = document.querySelectorAll('.foto-extra');
+            const boton = document.getElementById('btnGaleria');
+
+            if (fotos[0].classList.contains('foto-visible')) {
+                // Si ya se ven, las ocultamos
+                fotos.forEach(f => f.classList.remove('foto-visible'));
+                boton.innerText = "Ver más imágenes";
+                document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Si están ocultas, las mostramos
+                fotos.forEach(f => f.classList.add('foto-visible'));
+                boton.innerText = "Ver menos";
+            }
+        }
+
+     
+
+    function abrirImagen(src) {
+        document.getElementById("miModal").style.display = "block";
+        document.getElementById("imgGrande").src = src;
+    }
+    function cerrarImagen() {
+        document.getElementById("miModal").style.display = "none";
+    }
+    // Cerrar si hacen clic fuera de la foto
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("miModal")) { cerrarImagen(); }
+    }
+    </script>
+    
+</body>
+</html>

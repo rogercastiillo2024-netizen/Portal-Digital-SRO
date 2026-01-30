@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Fotos - SRO</title>
+    <style>
+
+        body { 
+        font-family: 'Segoe UI', sans-serif; 
+        margin: 0;
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+        background-size: 20px 20px; /* Esto crea un patrón de puntos muy finos */
+        min-height: 100vh;
+    }
+
+        /* Botón Atrás */
+        .btn-atras {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: #064e3b;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+
+        .contenedor-full {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .contenedor-full img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .contenedor-full img:hover { transform: scale(1.05); }
+
+        /* Estilos del visor (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal img { margin: auto; display: block; max-width: 90%; max-height: 80%; margin-top: 50px; border-radius: 10px; }
+        .cerrar { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="btn-atras">← Volver al Portal</a>
+
+    <h1 style="color: #064e3b;">Galería Completa de San Rafael</h1>
+
+    <div class="contenedor-full">
+        <img src="referencia 3.jpeg" onclick="abrir(this)">
+        <img src="referencia 4.jpeg" onclick="abrir(this)">
+        <img src="referencia 5.jpeg" onclick="abrir(this)">
+        <img src="referencia 6.jpg" onclick="abrir(this)">
+        </div>
+
+    <div id="visor" class="modal" onclick="this.style.display='none'">
+        <span class="cerrar">&times;</span>
+        <img id="imgGrande">
+    </div>
+
+    <script>
+        function abrir(e) {
+            document.getElementById("imgGrande").src = e.src;
+            document.getElementById("visor").style.display = "block";
+        }
+    </script>
+</body>
+</html>

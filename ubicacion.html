@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicaciones - San Rafael de Onoto</title>
+    <style>
+
+        body { 
+        font-family: 'Segoe UI', sans-serif; 
+        margin: 0;
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+        background-size: 20px 20px; /* Esto crea un patrón de puntos muy finos */
+        min-height: 100vh;
+    }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .header h1 { color: #004d40; margin: 0; }
+        .header p { color: #555; }
+
+        /* Contenedor de Tarjetas */
+        .contenedor-sitios {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Tarjeta Adaptable */
+        .tarjeta {
+            display: flex;
+            flex-wrap: wrap; /* Para que en celular se apile */
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tarjeta:hover { transform: translateY(-5px); }
+
+        .tarjeta-img {
+            flex: 1;
+            min-width: 300px; /* Tamaño mínimo en PC */
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .tarjeta-info {
+            flex: 1;
+            padding: 25px;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tarjeta-info h2 { margin: 0 0 10px; color: #007bff; }
+        .tarjeta-info p { color: #666; line-height: 1.6; margin-bottom: 20px; }
+
+        /* Botón de Acción */
+        .btn-llegar {
+            background: #28a745;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-llegar:hover { background: #218838; }
+
+        /* Visor de Mapa (Fondo Negro Transparente) */
+        .modal-mapa {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-contenido {
+            width: 90%;
+            height: 80%;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        .btn-volver {
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Guía Turística Digital</h1>
+        <p>Encuentra los mejores sitios de San Rafael de Onoto</p>
+    </div>
+
+    <div class="contenedor-sitios">
+        
+        <div class="tarjeta">
+            <img src="plaza bolivar.jpg" class="tarjeta-img" alt="Plaza Bolívar">
+            <div class="tarjeta-info">
+                <h2>Plaza Bolívar</h2>
+                <p>El punto de encuentro más importante. Disfruta de su ambiente tranquilo y su historia.</p>
+                <button class="btn-llegar" onclick="mostrarMapa('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.2855873053772!2d-68.97317819999999!3d9.6784521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e7de3debdc9dae1%3A0xa18046c1a0661edb!2sPlaza%20Bolivar%20SRO!5e1!3m2!1sen!2sve!4v1769805512743!5m2!1sen!2sve')">📍 ¿Cómo llegar?</button>
+            </div>
+        </div>
+
+        <div class="tarjeta">
+            <img src="estadio guaca muñoz.jpg" class="tarjeta-img" alt="Estadio Guaca Muñoz">
+            <div class="tarjeta-info">
+                <h2>Estadio Guaca Muñoz</h2>
+                <p>Un espacio de recreación y deporte en el centro de San Rafael de Onoto.</p>
+                <button class="btn-llegar" onclick="mostrarMapa('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1549.1748934346233!2d-68.9776883!3d9.6714883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e7de10047bfe703%3A0x93c700db9e313a8a!2sEstadio%20de%20softbol%20La%20Guaca%20Mu%C3%B1oz!5e1!3m2!1sen!2sve!4v1769805951089!5m2!1sen!2sve')">📍 ¿Cómo llegar?</button>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <img src="represa.jpg" class="tarjeta-img" alt="Represa Las Majaguas">
+            <div class="tarjeta-info">
+                <h2>Represa Las Majaguas</h2>
+                <p>Un lugar natural y recreativo con vistas espectaculares y ambiente tranquilo.</p>
+                <button class="btn-llegar" onclick="mostrarMapa('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49576.37305678566!2d-69.07387250508245!3d9.6526404887785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e7de6bf56e6c1fd%3A0xdd5530d6f0179e6f!2sEmbalse%20Las%20Majaguas!5e1!3m2!1sen!2sve!4v1769806703380!5m2!1sen!2sve ')">📍 ¿Cómo llegar?</button>
+            </div>
+    </div>
+     <div class="tarjeta">
+            <img src="iglesia catolica san rafael arcangel.jpg" class="tarjeta-img" alt="Iglesia San Rafael Arcángel">
+            <div class="tarjeta-info">
+                <h2>Iglesia San Rafael Arcángel</h2>
+                <p>Un emblemático lugar de culto y arquitectura religiosa en el corazón de la ciudad.</p>
+                <button class="btn-llegar" onclick="mostrarMapa('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d774.571179695707!2d-68.97251703419107!3d9.678546275608923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e7de3deb0692a37%3A0x929ff9131f5bcd96!2sIglesia%20Cat%C3%B3lica%20San%20Rafael%20Arc%C3%A1ngel!5e1!3m2!1sen!2sve!4v1769807430375!5m2!1sen!2sve')">📍 ¿Cómo llegar?</button>
+            </div>
+        </div>
+    <a href="index.html" class="btn-volver">← Volver al Inicio</a>
+
+    <div id="miModalMapa" class="modal-mapa">
+        <div class="modal-contenido">
+            <span class="cerrar-modal" onclick="cerrarMapa()">&times;</span>
+            <div id="contenedorIframe" style="width: 100%; height: 100%;"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarMapa(url) {
+            const modal = document.getElementById('miModalMapa');
+            const contenedor = document.getElementById('contenedorIframe');
+            contenedor.innerHTML = `<iframe src="${url}" width="100%" height="100%" style="border:0; border-radius:15px;" allowfullscreen="" loading="lazy"></iframe>`;
+            modal.style.display = 'flex';
+        }
+
+        function cerrarMapa() {
+            document.getElementById('miModalMapa').style.display = 'none';
+            document.getElementById('contenedorIframe').innerHTML = '';
+        }
+
+        // Cerrar al hacer clic fuera del mapa
+        window.onclick = function(event) {
+            const modal = document.getElementById('miModalMapa');
+            if (event.target == modal) { cerrarMapa(); }
+        }
+    </script>
+
+</body>
+</html>
