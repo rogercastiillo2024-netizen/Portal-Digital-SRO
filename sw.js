@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sro-cache-v17';
+const CACHE_NAME = 'sro-cache-v18';
 
 // Archivos principales que se guardan apenas se instala
 const urlsToCache = [
@@ -6,7 +6,8 @@ const urlsToCache = [
   '/index.html',
   'logo.png',
   '/galeria.html',   
-  '/ubicacion.html'
+  '/ubicacion.html',
+  '/prensa.html'
 ];
 
 self.addEventListener('install', event => {
@@ -48,6 +49,7 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
 
 
 
