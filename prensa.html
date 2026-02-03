@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Noticias | San Rafael de Onoto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --azul: #064e3b; --verde: #28a745; --rojo: #dc3545; --fondo: #f4f7f6; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+        body { background: var(--fondo); color: #333; }
+
+        header { background: var(--azul); color: white; padding: 15px 20px; text-align: center; }
+        
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        /* Estilo Farmacia */
+        .farmacia-box { 
+            background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; 
+            border-radius: 8px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
+        }
+
+        /* Estilo Breves (Noticias Cortas) */
+        .seccion-titulo { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; color: var(--azul); }
+        .punto-vivo { width: 10px; height: 10px; background: var(--rojo); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .breves-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .breve-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 3px solid var(--azul); }
+        .breve-card p { font-size: 0.9rem; margin-bottom: 5px; }
+        .breve-card span { font-size: 0.7rem; color: #888; font-weight: bold; }
+
+        /* Estilo Noticias Largas */
+        .noticias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .noticia-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .noticia-card img { width: 100%; height: 200px; object-fit: cover; }
+        .noticia-body { padding: 20px; }
+        .tag { background: var(--verde); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; }
+        .noticia-body h3 { margin: 10px 0; font-size: 1.1rem; }
+        .noticia-body p { font-size: 0.9rem; color: #666; }
+        
+        .btn-leer { background: none; border: none; color: var(--azul); font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .detalles { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; font-size: 0.85rem; color: #444; }
+
+        .btn-volver {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.2); /* Blanco transparente */
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-volver:hover {
+    background-color: white;
+    color: var(--azul);
+    transform: translateX(-5px); /* Pequeño efecto de movimiento a la izquierda */
+}
+    </style>
+</head>
+<body>
+
+<header>
+
+    <header>
+    <a href="index.html" class="btn-volver">← Volver al Inicio</a>
+    
+</header>
+    <h1>San Rafael de Onoto</h1>
+    <p>Portal Informativo Oficial</p>
+</header>
+
+<div class="container">
+    <div class="farmacia-box">
+        <span style="font-size: 1.5rem;">💊</span>
+        <div>
+            <strong>FARMACIA:</strong> <span id="f-nombre"></span> | 
+            <small id="f-ubicacion"></small> 
+            <span style="background:var(--rojo); color:white; padding:2px 6px; border-radius:4px; font-size:0.7rem; margin-left:10px;" id="f-estado"></span>
+        </div>
+    </div>
+
+    <div class="seccion-titulo">
+        <div class="punto-vivo"></div>
+        <h2>Avisos Recientes</h2>
+    </div>
+    <div class="breves-grid" id="grid-breves"></div>
+
+    <div class="seccion-titulo">
+        <h2>Gestión Municipal</h2>
+    </div>
+    <div class="noticias-grid" id="grid-noticias"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+    function render() {
+        // Cargar Farmacia
+        document.getElementById('f-nombre').innerText = PORTAL_DATA.farmacia.nombre;
+        document.getElementById('f-ubicacion').innerText = PORTAL_DATA.farmacia.ubicacion;
+        document.getElementById('f-estado').innerText = PORTAL_DATA.farmacia.estado;
+
+        // Cargar Breves
+        const gridBreves = document.getElementById('grid-breves');
+        gridBreves.innerHTML = PORTAL_DATA.breves.map(b => `
+            <div class="breve-card">
+                <p>${b.texto}</p>
+                <span>🕒 ${b.hora}</span>
+            </div>
+        `).join('');
+
+        // Cargar Noticias
+        const gridNoticias = document.getElementById('grid-noticias');
+        gridNoticias.innerHTML = PORTAL_DATA.noticias.map((n, i) => `
+            <div class="noticia-card">
+                <img src="${n.img}">
+                <div class="noticia-body">
+                    <span class="tag">${n.tag}</span>
+                    <small style="display:block; margin-top:5px; color:#999">${n.fecha}</small>
+                    <h3>${n.titulo}</h3>
+                    <p>${n.resumen}</p>
+                    <div id="det-${i}" class="detalles">${n.detalle}</div>
+                    <button class="btn-leer" onclick="toggle(${i}, this)">Leer más ↓</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function toggle(i, btn) {
+        const d = document.getElementById(`det-${i}`);
+        if(d.style.display === "block") {
+            d.style.display = "none";
+            btn.innerText = "Leer más ↓";
+        } else {
+            d.style.display = "block";
+            btn.innerText = "Ver menos ↑";
+        }
+    }
+
+    window.onload = render;
+</script>
+
+</body>
+</html>
