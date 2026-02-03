@@ -1,7 +1,7 @@
 // ESTO ES LO QUE EDITARÁS DESDE TU CELULAR
 const PORTAL_DATA = {
     farmacia: {
-        nombre: "Farmacia San Rafael",
+        nombre: "Farmacia Popular",
         ubicacion: "Av. Bolívar con Calle 5",
         estado: "TURNO 24H"
     },
