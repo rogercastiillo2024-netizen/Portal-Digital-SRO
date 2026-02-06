@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías - Portal Digital SRO</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* RESET DE MÁRGENES PARA EL HEADER FULL WIDTH */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* HEADER MEJORADO */
+        header {
+            width: 100%;
+    
+            background-color: #064e3b; /* Verde de tu web */
+            color: white;
+            padding: 50px 0; /* Espaciado para que abarque bien su zona */
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* DISEÑO DE CATEGORÍAS */
+        .btn-volver-inicio {
+            display: inline-block;
+            margin: 25px 0 10px 25px;
+            padding: 8px 15px;
+            background-color: white;
+            color: #064e3b;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 1px solid #064e3b;
+            transition: 0.3s;
+        }
+
+        .btn-volver-inicio:hover {
+            background-color: #064e3b;
+            color: white;
+        }
+
+        .grid-categorias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-categoria {
+            background: white;
+            border-radius: 15px;
+            text-align: center;
+            padding: 40px 20px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-bottom: 5px solid #064e3b;
+        }
+
+        .card-categoria:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(40, 167, 69, 0.15);
+        }
+
+        .icono-cat {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .nombre-cat {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: #064e3b;
+        }
+
+        .ejemplos {
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Portal Digital SRO</h1>
+            <p>Conectando el comercio de San Rafael de Onoto</p>
+        </div>
+    </header>
+
+    <a href="index.html" class="btn-volver-inicio">← Volver al Inicio</a>
+
+    <main class="grid-categorias">
+        <a href="gastronomia.html" class="card-categoria">
+            <span class="icono-cat">🍕</span>
+            <h3 class="nombre-cat">Gastronomía</h3>
+            <p class="ejemplos">Encuentra los mejores sabores. <br>Como: <strong>Luna Pizza</strong></p>
+        </a>
+
+        <a href="salud.html" class="card-categoria">
+            <span class="icono-cat">💊</span>
+            <h3 class="nombre-cat">Salud</h3>
+            <p class="ejemplos">Farmacias y servicios médicos de confianza.</p>
+        </a>
+
+        <a href="supermercados.html" class="card-categoria">
+            <span class="icono-cat">🛒</span>
+            <h3 class="nombre-cat">Comercios</h3>
+            <p class="ejemplos">Supermercados, ferreterías y tiendas locales.</p>
+        </a>
+    </main>
+
+    <footer>
+        <p>© 2026 Portal Digital SRO - Impulsando el talento local</p>
+    </footer>
+
+</body>
+</html>

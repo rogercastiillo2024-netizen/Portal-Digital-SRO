@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud - Portal SRO</title>
+    <style>
+        /* RESET BÁSICO */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f0f2f5; color: #333; }
+        
+        /* HEADER ESTILO SRO - AZUL PARA SALUD */
+        header { width: 100%; background-color: #064e3b; /* Azul para salud */ color: white; padding: 40px 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.5rem; margin-bottom: 5px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* BOTÓN VOLVER */
+        .btn-volver { 
+            display: inline-block; margin: 20px; color: #064e3b; /* Azul para salud */ text-decoration: none; font-weight: bold; 
+            background: white; padding: 8px 15px; border-radius: 5px; border: 1px solid #064e3b; /* Azul para salud */
+            transition: 0.3s; 
+        }
+        .btn-volver:hover { background: #064e3b; color: white; }
+
+        /* GRID DE NEGOCIOS */
+        .contenedor-negocios { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+
+        /* TARJETA DE COMERCIO */
+        .card-comercio {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex; flex-direction: column;
+            transition: 0.3s;
+            border-top: 5px solid #064e3b; /* Borde azul para salud */
+        }
+        .card-comercio:hover { transform: translateY(-5px); }
+
+        /* CABECERA DE LA TARJETA */
+        .info-header { padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
+        .info-header h2 { color: #064e3b; /* Azul para salud */ font-size: 1.4rem; margin-bottom: 5px; }
+        .eslogan { font-size: 0.85rem; color: #666; font-style: italic; }
+
+        /* GALERÍA DE 4 FOTOS */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+            padding: 4px;
+            background: #eee;
+        }
+        .galeria img {
+            width: 100%;
+            height: 100px; /* Tamaño más pequeño para las miniaturas */
+            object-fit: cover;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .galeria img:hover { filter: brightness(0.8); }
+
+        /* CUERPO DE LA TARJETA */
+        .cuerpo-card { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .meta-info { font-size: 0.8rem; color: #555; margin-bottom: 15px; }
+        
+        /* BOTONES */
+        .btn-mapa {
+            display: block; text-align: center; background: #f8f9fa; color: #555;
+            text-decoration: none; padding: 8px; border-radius: 6px; font-size: 0.85rem;
+            margin-bottom: 10px; border: 1px solid #ddd;
+        }
+        .btn-whatsapp {
+            display: block; text-align: center; background: #064e3b; color: white;
+            text-decoration: none; padding: 10px; border-radius: 6px; font-weight: bold;
+        }
+
+        /* MODAL (PANTALLA COMPLETA) */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en la pantalla */
+            z-index: 1000; /* Por encima de todo */
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto; /* Para scroll si la imagen es muy grande */
+            background-color: rgba(0,0,0,0.9); /* Fondo oscuro transparente */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        footer { text-align: center; padding: 30px; color: #999; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Salud y Bienestar SRO</h1>
+        <p>Tu bienestar es nuestra prioridad en San Rafael de Onoto</p>
+    </header>
+
+    <a href="categorias.html" class="btn-volver">← Categorías</a>
+
+    <main class="contenedor-negocios">
+
+        <article class="card-comercio">
+            <div class="info-header">
+                <h2><i class="fas fa-first-aid"></i> Expendio de Medicinas Don Jesús C.A</h2>
+                <p class="eslogan">"Es la farmacia de confianza en San Rafael de Onoto, ofreciendo una amplia gama de medicamentos, insumos médicos y productos de cuidado personal."</p>
+            </div>
+            <div class="galeria">
+                <img src="Expendio de Medicinas Don Jesus.jpeg" onclick="openModal(this.src) ('Expendio de Medicina Don Jesus.jpeg')">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400" alt="Atención al cliente" onclick="openModal('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800')">
+                <img src="Expendio de Medicinas Don Jesus 2.jpeg" alt="Estantes de farmacia" onclick="openModal(this.src)">
+                <img src="Expendio de Medicinas Don Jesus 3.jpeg" alt="Productos de cuidado personal" onclick="openModal(this.src)">
+            </div>
+            <div class="cuerpo-card">
+                <div class="meta-info">
+                    <p>📍FRENTE A LA PLACITA PAEZ, ENTRADA A, San Rafael De Onoto 3306, Portuguesa</p>
+                    <p>⏰ 24/7</p>
+                    <p>💊 ¡Contamos con delivery!</p>
+                </div>
+                <a href="https://maps.app.goo.gl/DH1EHVMuXLRLx9QU9" target="_blank" class="btn-mapa">📍 Ver cómo llegar</a>
+                <a href="https://wa.me/04226369727?text=Hola%20Expendio%20de%20Medicinas%20Don%20Jesus,%20vi%20su%20negocio%20en%20el%20Portal%20SRO%20y%20necesito..." class="btn-whatsapp">Consultar por WhatsApp</a>
+            </div>
+        </article>
+
+        <article class="card-comercio">
+            <div class="info-header">
+                <h2>Centro Médico Vital SRO</h2>
+                <p class="eslogan">"Tu salud en las mejores manos"</p>
+            </div>
+            <div class="galeria">
+                <img src="https://images.unsplash.com/photo-1584820909564-9b8160293040?w=400" alt="Entrada clínica" onclick="openModal('https://images.unsplash.com/photo-1584820909564-9b8160293040?w=800')">
+                <img src="https://images.unsplash.com/photo-1538108149393-dbd4bb598718?w=400" alt="Consultorio" onclick="openModal('https://images.unsplash.com/photo-1538108149393-dbd4bb598718?w=800')">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d506938?w=400" alt="Equipos médicos" onclick="openModal('https://images.unsplash.com/photo-1579684385127-1ef15d506938?w=800')">
+                <img src="https://images.unsplash.com/photo-1629904853716-9d27361d3183?w=400" alt="Médico paciente" onclick="openModal('https://images.unsplash.com/photo-1629904853716-9d27361d3183?w=800')">
+            </div>
+            <div class="cuerpo-card">
+                <div class="meta-info">
+                    <p>📍 Calle 5 de Julio, N° 123</p>
+                    <p>⏰ Lunes a Viernes: 8:00 AM - 4:00 PM</p>
+                    <p>👩‍⚕️ Especialidades: Medicina General, Pediatría</p>
+                </div>
+                <a href="https://maps.google.com1" target="_blank" class="btn-mapa">📍 Ver cómo llegar</a>
+                <a href="https://wa.me/04226369727?text=Hola%20Centro%20Médico%20Vital,%20vi%20su%20información%20en%20el%20Portal%20SRO%20y%20deseo%20pedir%20una%20cita..." class="btn-whatsapp">Pedir Cita por WhatsApp</a>
+            </div>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Portal Digital SRO - Juntos por una comunidad más sana</p>
+    </footer>
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function openModal(imgSrc) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "flex"; // Usar flex para centrar
+            modalImg.src = imgSrc;
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+
+        // Cerrar el modal haciendo clic fuera de la imagen (opcional)
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
