@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Comercio | Portal SRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primario: #e80d0d; /* Naranja apetito */
+            --secundario: #3f3e3d; /* Gris oscuro pro */
+            --exito: #25D366; /* Verde WhatsApp */
+            --fondo: #f9f9f9;
+        }
+
+       body {
+    background-color: #121212; /* Fondo base oscuro */
+    background-image: 
+        linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.8)),
+        url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Textura sutil */
+    background-attachment: fixed;
+    color: #ffffff;
+}
+
+/* Ajuste para que las tarjetas de JJ Gourmet resalten */
+.menu-card {
+    background: rgba(45, 45, 45, 0.9) !important;
+    border: 1px solid rgba(230, 126, 34, 0.3); /* Borde naranja suave */
+    backdrop-filter: blur(10px); /* Efecto de vidrio esmerilado */
+}
+
+/* Ajuste para que las tarjetas de menú no se pierdan */
+.menu-card {
+    background: #2d2d2d !important;
+    border: 1px solid #3d3d3d;
+    color: white;
+}
+
+.menu-info p {
+    color: #bbb !important;
+}
+        /* HEADER */
+        header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('local por fuera.webp'); 
+                 background-size: cover; background-position: center; color: white; text-align: center; padding: 80px 20px; }
+        
+        .btn-atras { position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+        /* SECCIONES */
+        .contenedor { max-width: 900px; margin: auto; padding: 20px; }
+        .titulo-seccion { font-size: 1.5rem; border-left: 5px solid var(--primario); padding-left: 15px; margin: 40px 0 20px; color: var(--secundario); }
+
+        /* GALERÍAS (5 Fotos por sección) */
+        .galeria-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .galeria-grid img { width: 100%; height: 140px; object-fit: cover; border-radius: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .galeria-grid img:hover { transform: translateY(-5px); }
+
+        /* MENÚS ESTILO CARD */
+        .menu-card { background: white; border-radius: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .menu-info h3 { margin: 0; color: var(--primario); }
+        .menu-info p { margin: 5px 0 0; font-size: 0.9rem; color: #666; }
+        
+        .btn-ws { background: var(--exito); color: white; text-decoration: none; padding: 12px 20px; border-radius: 50px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-ws:hover { transform: scale(1.05); background: #128C7E; }
+
+        /* MAPA */
+        .mapa-box iframe { width: 100%; height: 350px; border-radius: 25px; border: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* FOOTER */
+        footer { background: var(--secundario); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; }
+        .redes-box { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+        .redes-box a { color: white; text-decoration: none; border: 1px solid #064e3b; padding: 10px 20px; border-radius: 12px; transition: 0.3s; }
+        .redes-box a:hover { background: var(--primario); border-color: var(--primario); }
+
+        /* MODAL FULL SCREEN */
+        #modalFull { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        #modalFull img { max-width: 95%; max-height: 85%; border-radius: 10px; }
+        .cerrar { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+    
+    
+.btn-ver-precios {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: 0.3s;
+        text-align: center;
+    }
+    .btn-ver-precios:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+    /* Ajuste para que los botones se vean bien en celulares */
+    @media (max-width: 480px) {
+        .menu-card { flex-direction: column; text-align: center; gap: 15px; }
+        .btn-ws, .btn-ver-precios { width: 100%; }
+    }
+    
+    /* Contenedor y Títulos */
+.contenedor-menus { padding: 10px; max-width: 800px; margin: auto; font-family: 'Poppins', sans-serif; }
+.titulo-seccion { border-left: 5px solid #e80d0d; padding-left: 15px; margin: 30px 0; }
+
+/* Tarjetas */
+.menu-card {
+    background: white; border-radius: 15px; padding: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.menu-info h3 { margin: 0; color: #e80d0d; }
+.menu-info p { margin: 5px 0 0; color: #666; font-size: 0.85rem; }
+
+/* Botones */
+.grupo-botones { display: flex; flex-direction: column; gap: 8px; min-width: 130px; }
+.btn-action {
+    border: none; padding: 10px; border-radius: 50px; font-weight: 600;
+    cursor: pointer; text-align: center; text-decoration: none;
+    font-size: 0.75rem; transition: 0.3s; color: white;
+}
+.btn-foto { background: #9b59b6; }
+.btn-precio { background: #3498db; }
+.btn-pedir { background: #25D366; }
+.btn-action:hover { transform: scale(1.03); filter: brightness(1.1); }
+
+/* Modal */
+#modalFull {
+    display: none; position: fixed; top:0; left:0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;
+}
+#imgEspacio { max-width: 90%; max-height: 80vh; border-radius: 8px; object-fit: contain; }
+.cerrar-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+.flecha {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.1); color: white; border: none;
+    padding: 15px; cursor: pointer; border-radius: 50%; font-size: 24px;
+}
+#prevBtn { left: 15px; } #nextBtn { right: 15px; }
+
+@media (max-width: 500px) {
+    .menu-card { flex-direction: column; text-align: center; gap: 15px; }
+    .grupo-botones { width: 100%; }
+}
+
+.flotante-container {
+    position: fixed;
+    bottom: 20px;
+    left: 2px;
+    background: white;
+    padding: 10px 10px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    border: 2px solid #e80d0d; /* El naranja de tu portal */
+    transition: 0.5s;
+    animation: deslizarSubida 0.8s ease-out;
+}
+
+.flotante-contenido {
+    display: flex;
+    align-items: center;
+    gap: 0,1px;
+}
+
+.reloj-icono { font-size: 18px; }
+
+.info-horario h4 { margin: 0; font-size: 0.8rem; color: #666; text-transform: uppercase; }
+.info-horario p { margin: 0; font-size: 0.95rem; font-weight: bold; color: #2d3436; }
+
+.cerrar-flotante {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    background: #e80d0d;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@keyframes deslizarSubida {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Para que no tape mucho en pantallas pequeñas */
+@media (max-width: 480px) {
+    .flotante-container { left: 10px; padding: 10px 15px; }
+}
+
+/* IMPORTANTE: Evita el scroll horizontal en toda la web */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ESTO CENTRA EL LOGO */
+    z-index: 1000;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* EL LOGO: Ahora sí estará en el centro exacto */
+.logo-nav {
+    color: #e80d0d;
+    font-weight: bold;
+    font-size: 1.3rem; /* Lo subí un poco para que destaque */
+    text-align: center;
+    white-space: nowrap; /* Evita que el nombre se parta en dos líneas */
+}
+
+/* BOTÓN VOLVER: Lo fijamos a la izquierda sin estorbar */
+.btn-volver-nav {
+    position: absolute;
+    left: 15px;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+}
+
+/* MENÚ KEBAB: Lo fijamos a la derecha sin estorbar */
+.menu-kebab {
+    position: fixed;
+    top: 10px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 10px;
+    
+}
+
+.menu-kebab span {
+    width: 5px;
+    height: 5px;
+    background-color: #e80d0d;
+    border-radius: 50%;
+}
+
+/* Panel Lateral que no deja sobrante */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Totalmente fuera */
+    width: 280px;
+    height: 100vh;
+    background: #252525;
+    z-index: 1001;
+    transition: 0.4s ease-in-out;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+}
+
+.side-menu.active {
+    right: 0; /* Entra suavemente */
+}
+
+.side-menu-links {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.side-menu-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+}
+.overlay.active { display: block; }
+
+.cerrar-menu { color: white; font-size: 30px; cursor: pointer; float: right; }
+
+.btn-flotante-ws {
+    display: none; /* Empieza oculto */
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s ease; /* Animación suave al aparecer */
+    
+    /* El resto de tus estilos se quedan igual */
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    border-radius: 50px;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+html {
+    scroll-behavior: smooth; /* Esto hace que el "viaje" al footer sea fluido */
+}
+
+.pie-pagina {
+    background: #1a1a1a;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px solid #e80d0d;
+    margin-top: 50px;
+}
+
+.pie-pagina {
+    background: #111;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 3px solid #e80d0d;
+}
+
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 25px 0;
+}
+
+/* Estilo de los iconos */
+.social-icon {
+    font-size: 24px; /* Tamaño del icono */
+    color: #888; /* Color gris por defecto */
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Colores originales al pasar el dedo/mouse */
+.facebook:hover {
+    color: #1877F2;
+    transform: scale(1.2);
+}
+
+.twitter:hover {
+    color: #fff; /* El logo de X es blanco o negro */
+    transform: scale(1.2);
+}
+
+.tiktok:hover {
+    color: #ff0050; /* Color primario de TikTok */
+    text-shadow: 2px 2px #00f2ea; /* Efecto glitch de TikTok */
+    transform: scale(1.2);
+}
+
+.footer-info {
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e80d0d; /* El rojo de JJ Gourmet */
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(#e80d0d);
+    transition: all 0.3s ease;
+    z-index: 1100; /* Por encima de la navbar */
+}
+
+.btn-volver:hover {
+    background: #e80d0d;
+    color: white;
+    transform: translateX(-5px); /* Efecto de rebote hacia la izquierda */
+}
+
+/* Ajuste para que el logo no choque con el botón en móviles */
+@media (max-width: 480px) {
+    .logo-nav {
+        margin-left: 80px; /* Desplaza el texto del logo para dar espacio al botón */
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+#foto-pantalla {
+    max-width: 85%;
+    max-height: 80vh;
+    border: 3px solid #e80d0d; /* Dorado JJ Gourmet */
+    border-radius: 10px;
+}
+
+.flecha-izq, .flecha-der {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #e80d0d;
+    font-size: 60px;
+    cursor: pointer;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.flecha-izq:hover, .flecha-der:hover { color: white; }
+.flecha-izq { left: 5%; }
+.flecha-der { right: 5%; }
+
+.cerrar {
+    position: absolute;
+    top: 30px; right: 40px;
+    color: white; font-size: 50px; cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="nav-container">
+        <span class="logo-nav">JJ Gourmet</span>
+        
+        <div class="menu-kebab" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <a href="gastronomia.html" class="btn-volver">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+</nav>
+
+<div id="sideMenu" class="side-menu">
+    <div class="side-menu-header">
+        <span class="cerrar-menu" onclick="toggleMenu()">×</span>
+    </div>
+    <div class="side-menu-links">
+        <a href="#local" onclick="toggleMenu()">🏠 Nuestro Local</a>
+        <a href="#especialidades" onclick="toggleMenu()">✨ Especialidades</a>
+        <a href="#menu" onclick="toggleMenu()">🍲 Menú Completo</a>
+        <a href="#footer" onclick="toggleMenu()">📲 Contacto</a>
+    </div>
+</div>
+
+<div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+    <header>
+        <a href="gastronomia.html" class="btn-atras">← Volver</a>
+        <h1 id="nombreComercio">JJ Gourmet</h1>
+        <p id="slogan">"Calidad y sabor en cada bocado"</p>
+    </header>
+
+    <div class="contenedor">
+        
+         <section id="local"></section>
+        <h2 class="titulo-seccion">Nuestro Local</h2>
+
+        <a href="https://wa.me/584245309627?text=Hola!%20Me%20gustaría%20hacer%20un%20pedido%20🛍️" class="btn-flotante-ws" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+       <div class="galeria-grid" id="grid-local">
+    <img src="fondo.webp" onclick="abrirFoto(0, 'grid-local')">
+    <img src="l1.webp" onclick="abrirFoto(1, 'grid-local')">
+    <img src="l2.webp" onclick="abrirFoto(2, 'grid-local')">
+    <img src="l3.webp" onclick="abrirFoto(3, 'grid-local')">
+    <img src="planta.webp" onclick="abrirFoto(4, 'grid-local')">
+</div>
+
+<section id="especialidades"></section>
+<h2 class="titulo-seccion">Especialidades</h2>
+
+<div class="galeria-grid" id="grid-especialidades">
+    <img src="perro 5.webp" onclick="abrirFoto(0, 'grid-especialidades')">
+    <img src="burger 7.webp" onclick="abrirFoto(1, 'grid-especialidades')">
+    <img src="salchipapas 1.webp" onclick="abrirFoto(2, 'grid-especialidades')">
+    <img src="burger 8.webp" onclick="abrirFoto(3, 'grid-especialidades')">
+    <img src="salchipapas 2.webp" onclick="abrirFoto(4, 'grid-especialidades')">
+</div>
+
+<div id="visor-modal" class="modal">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <button class="flecha-izq" onclick="cambiarFoto(-1)">&#10094;</button>
+    <img id="foto-pantalla" src="">
+    <button class="flecha-der" onclick="cambiarFoto(1)">&#10095;</button>
+</div>
+
+         <section id="menu"></section>
+      <div class="contenedor-menus">
+    <h2 class="titulo-seccion">Nuestra Carta Interactiva</h2>
+
+    <div class="menu-card">
+        <div class="menu-info">
+            <h3>🌽 Cachapas Especiales</h3>
+            <p>Maíz tierno con doble queso y pernil ahumado.</p>
+        </div>
+        <div class="grupo-botones">
+            <button onclick="abrirGaleria(['c1.webp','c2.webp','c3.webp','c4.webp'])" class="btn-action btn-foto">🖼️ Ver Fotos (5)</button>
+            <button onclick="abrirSola('img/precios-cachapa.jpg')" class="btn-action btn-precio">📄 Ver Precios</button>
+            <a href="https://wa.me/584245309627?text=Hola!%20Quiero%20pedir%20*Cachapas*" class="btn-action btn-pedir">📲 Pedir Ahora</a>
+        </div>
+    </div>
+
+    <div class="menu-card">
+        <div class="menu-info">
+            <h3>🍔 Hamburguesas</h3>
+            <p>Carne 100% artesanal, queso cheddar y papas.</p>
+        </div>
+        <div class="grupo-botones">
+            <button onclick="abrirGaleria(['h1.webp','h2.webp','h3.webp','h4.webp','h5.webp'])" class="btn-action btn-foto">🖼️ Ver Fotos (5)</button>
+            <button onclick="abrirSola('img/precios-burguer.jpg')" class="btn-action btn-precio">📄 Ver Precios</button>
+            <a href="https://wa.me/584245309627?text=Hola!%20Quiero%20pedir%20*Hamburguesas*" class="btn-action btn-pedir">📲 Pedir Ahora</a>
+        </div>
+    </div>
+
+    <div class="menu-card">
+        <div class="menu-info">
+            <h3>🍲 Sopas</h3>
+            <p>Sopa de res, Costilla y mucho Mas.</p>
+        </div>
+        <div class="grupo-botones">
+            <button onclick="abrirGaleria(['s1.webp','s2.webp'])" class="btn-action btn-foto">🖼️ Ver Fotos (5)</button>
+            <button onclick="abrirSola('img/precios-cachapa.jpg')" class="btn-action btn-precio">📄 Ver Precios</button>
+            <a href="https://wa.me/584245309627?text=Hola!%20Quiero%20pedir%20*Cachapas*" class="btn-action btn-pedir">📲 Pedir Ahora</a>
+        </div>
+    </div>
+
+    <div class="menu-card">
+        <div class="menu-info">
+            <h3>🌭 Perros Calientes y Pepitos</h3>
+            <p>Diferentes Perros calientes y pepitos!.</p>
+        </div>
+        <div class="grupo-botones">
+            <button onclick="abrirGaleria(['p1.webp','p2.webp','p3.webp','pp1.webp','pp2.webp'])" class="btn-action btn-foto">🖼️ Ver Fotos (5)</button>
+            <button onclick="abrirSola('img/precios-cachapa.jpg')" class="btn-action btn-precio">📄 Ver Precios</button>
+            <a href="https://wa.me/584245309627?text=Hola!%20Quiero%20pedir%20*Cachapas*" class="btn-action btn-pedir">📲 Pedir Ahora</a>
+        </div>
+    </div>
+
+    <div id="modalFull">
+        <span class="cerrar-btn" onclick="cerrarM()">×</span>
+        <button id="prevBtn" class="flecha" onclick="cambiarM(-1)">❮</button>
+        <img id="imgEspacio" src="">
+        <button id="nextBtn" class="flecha" onclick="cambiarM(1)">❯</button>
+        <p id="contador" style="color: white; margin-top: 10px; font-weight: bold;"></p>
+    </div>
+</div>
+        
+        
+
+        <h2 class="titulo-seccion">Galería de Sabores</h2>
+        <div class="galeria-grid" id="grid-Galería de Sabores">
+    <img src="perro 4.webp" onclick="abrirFoto(0, 'grid-Galería de Sabores')">
+    <img src="burger 7.webp" onclick="abrirFoto(1, 'grid-Galería de Sabores')">
+    <img src="perro 5.webp" onclick="abrirFoto(2, 'grid-Galería de Sabores')">
+    <img src="burger 8.webp" onclick="abrirFoto(3, 'grid-Galería de Sabores')">
+    <img src="burger 9.webp" onclick="abrirFoto(4, 'grid-Galería de Sabores')">
+</div>
+
+<div id="visor-modal" class="modal">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <button class="flecha-izq" onclick="cambiarFoto(-1)">&#10094;</button>
+    <img id="foto-pantalla" src="">
+    <button class="flecha-der" onclick="cambiarFoto(1)">&#10095;</button>
+</div>
+
+        <h2 class="titulo-seccion">Ubícanos en San Rafael</h2>
+        <div class="mapa-box">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d738.7200606721628!2d-68.97284873053195!3d9.679999921411516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e7de30075b08047%3A0xf3adb8e334364add!2sJJ%20Gourmet!5e1!3m2!1sen!2sve!4v1770771605469!5m2!1sen!2sve"></iframe>
+        </div>
+
+    </div>
+
+    <footer>
+<footer id="footer" class="pie-pagina">
+    <div class="footer-container">
+        <h3>JJ Gourmet</h3>
+        <p>¡Síguenos en nuestras redes!</p>
+        
+        <div class="redes-sociales">
+            <a href="#" class="social-icon facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon twitter">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="#" class="social-icon tiktok">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+        </div>
+        
+        <div class="footer-info">
+            <p>📍 San Rafael de Onoto, Portuguesa</p>
+            <p class="desarrollador">Diseñado por <strong>Roger Castillo- Portal SRO</strong></p>
+        </div>
+    </div>
+</footer>
+
+    <div id="modalFull">
+        <span class="cerrar" onclick="cerrarFoto()">&times;</span>
+        <img id="imgEspacio">
+        <p style="color:white; margin-top:15px;">Toque para cerrar</p>
+    </div>
+
+    <div id="horarioFlotante" class="flotante-container">
+    <div class="flotante-contenido">
+        <span class="cerrar-flotante" onclick="cerrarHorario()">×</span>
+        <div class="reloj-icono">⏰</div>
+        <div class="info-horario">
+            <h4>Horario de Hoy</h4>
+            <p id="textoHorario">Cargando...</p>
+        </div>
+    </div>
+
+    <script>
+        function abrirFoto(url) {
+            document.getElementById('imgEspacio').src = url;
+            document.getElementById('modalFull').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarFoto() {
+            document.getElementById('modalFull').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        let imgs = [];
+let idx = 0;
+
+// Abre una sola imagen (Precios)
+function abrirSola(u) {
+    imgs = [u]; 
+    idx = 0;
+    refrescarM(false);
+}
+
+// Abre galería de múltiples fotos
+function abrirGaleria(l) {
+    imgs = l; 
+    idx = 0;
+    refrescarM(true);
+}
+
+// Actualiza el contenido del Modal
+function refrescarM(showArrows) {
+    const modal = document.getElementById('modalFull');
+    document.getElementById('imgEspacio').src = imgs[idx];
+    modal.style.display = 'flex';
+    
+    // Mostrar/Ocultar flechas y contador
+    document.getElementById('prevBtn').style.display = showArrows ? 'block' : 'none';
+    document.getElementById('nextBtn').style.display = showArrows ? 'block' : 'none';
+    document.getElementById('contador').innerText = showArrows ? (idx + 1) + " / " + imgs.length : "";
+    
+    document.body.style.overflow = 'hidden'; // Bloquea scroll fondo
+}
+
+// Cambia de imagen en la galería
+function cambiarM(d) {
+    idx = (idx + d + imgs.length) % imgs.length;
+    document.getElementById('imgEspacio').src = imgs[idx];
+    document.getElementById('contador').innerText = (idx + 1) + " / " + imgs.length;
+}
+
+// Cierra el Modal
+function cerrarM() {
+    document.getElementById('modalFull').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Habilita scroll fondo
+}
+
+function actualizarHorario() {
+    // Aquí configuras el horario real de Jamileth o del local
+    const horaApertura = "5:00 PM";
+    const horaCierre = "11:00 PM";
+    
+    // Puedes incluso añadir lógica para saber qué día es hoy
+    document.getElementById('textoHorario').innerText = horaApertura + " a " + horaCierre;
+}
+
+function cerrarHorario() {
+    const banner = document.getElementById('horarioFlotante');
+    banner.style.opacity = '0';
+    setTimeout(() => {
+        banner.style.display = 'none';
+    }, 500);
+}
+
+// Ejecutar al cargar la página
+window.onload = actualizarHorario;
+
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+    
+    menu.classList.toggle('active');
+    overlay.classList.toggle('active');
+
+    // Evita que la página se mueva mientras el menú está abierto
+    if (menu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+
+window.addEventListener('scroll', function() {
+    const botonWs = document.querySelector('.btn-flotante-ws');
+    
+    // Si bajamos más de 300px, mostramos el botón
+    if (window.scrollY > 300) {
+        botonWs.style.display = 'flex';
+        // Agregamos una pequeña demora para la animación de entrada
+        setTimeout(() => {
+            botonWs.style.opacity = '1';
+            botonWs.style.transform = 'scale(1)';
+        }, 10);
+    } else {
+        // Si subimos al inicio, se oculta
+        botonWs.style.opacity = '0';
+        botonWs.style.transform = 'scale(0)';
+        setTimeout(() => {
+            botonWs.style.display = 'none';
+        }, 300);
+    }
+});
+    </script>
+
+    <script>
+  const container = document.querySelector('.slider-container'); // Cambia por tu clase real
+  const btnPrev = document.querySelector('.prev');
+  const btnNext = document.querySelector('.next');
+
+  // Cuánto se va a desplazar (puedes ajustarlo al ancho de una foto)
+  const scrollAmount = 300; 
+
+  btnNext.addEventListener('click', () => {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  btnPrev.addEventListener('click', () => {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+</script>
+
+<script>
+    let fotosEnMemoria = [];
+let posicionActual = 0;
+
+function abrirFoto(index, idContenedor) {
+    // 1. Buscamos todas las fotos del grupo donde se hizo clic
+    const contenedor = document.getElementById(idContenedor);
+    const imagenes = contenedor.getElementsByTagName('img');
+    
+    // 2. Guardamos las rutas de esas 5 fotos en una lista
+    fotosEnMemoria = Array.from(imagenes).map(img => img.src);
+    posicionActual = index;
+
+    // 3. Abrimos el visor y ponemos la foto
+    document.getElementById("visor-modal").style.display = "flex";
+    document.getElementById("foto-pantalla").src = fotosEnMemoria[posicionActual];
+}
+
+function cambiarFoto(direccion) {
+    // Sumamos o restamos a la posición
+    posicionActual += direccion;
+
+    // Si llega al final, vuelve al principio
+    if (posicionActual >= fotosEnMemoria.length) posicionActual = 0;
+    // Si retrocede del principio, va al final
+    if (posicionActual < 0) posicionActual = fotosEnMemoria.length - 1;
+
+    document.getElementById("foto-pantalla").src = fotosEnMemoria[posicionActual];
+}
+
+function cerrarModal() {
+    document.getElementById("visor-modal").style.display = "none";
+}
+</script>
+</body>
+</html>
