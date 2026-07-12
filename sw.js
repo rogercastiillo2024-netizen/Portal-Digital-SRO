@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sro-cache-v38';
+const CACHE_NAME = 'sro-cache-v39';
 
 // Archivos principales que se guardan apenas se instala
 const urlsToCache = [
